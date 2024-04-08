@@ -17,7 +17,7 @@ El sistema proporciona funcionalidades para gestionar la información de emplead
 1. Clona o descarga este repositorio en tu máquina local.
 2. Asegúrate de tener Python instalado en tu sistema.
 3. Abre una terminal y navega al directorio donde se encuentra el archivo `main.py`.
-4. Ejecuta el programa escribiendo `python main.py` en la terminal.
+4. Ejecuta el programa escribiendo desde `main.py`.
 5. Sigue las instrucciones en pantalla para registrar empleados, visitantes y visitas, y para acceder a otras funcionalidades del sistema.
 
 ## Requisitos
