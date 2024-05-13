@@ -46,18 +46,18 @@ Este sistema bancario está desarrollado utilizando las siguientes tecnologías:
 
 Para instalar y ejecutar el sistema bancario, sigue estos pasos:
 
-1- Clona o descarga este repositorio en tu máquina local.
-2- Abre el proyecto en tu entorno de desarrollo Java preferido.
-3- Ejecuta el archivo Main.java para iniciar el programa.
-4- Sigue las instrucciones en pantalla para registrar empleados, visitantes y visitas, y para acceder a otras funcionalidades del sistema.
+1. Clona o descarga este repositorio en tu máquina local.
+2. Abre el proyecto en tu entorno de desarrollo Java preferido.
+3. Ejecuta el archivo Main.java para iniciar el programa.
+4. Sigue las instrucciones en pantalla para registrar empleados, visitantes y visitas, y para acceder a otras funcionalidades del sistema.
 
 SUCURSAL MADERO
-Usuario: "Dani"
-Contraseña: "dani"
+- Usuario: "Dani"
+- Contraseña: "dani"
 
 SUCURSAL ACUEDUCTO
-Usuario: "Fer"
-Contraseña: "fer"
+- Usuario: "Fer"
+- Contraseña: "fer"
 
 ## Requisitos
 
