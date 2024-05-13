@@ -1,0 +1,16 @@
+{
+
+  "contactos": [
+    {
+      "nombre": "Juan",
+      "telefono": "5551234453",
+      "correo": "chilacas@gmail.com"
+    },
+    {
+      "nombre": "María",
+      "telefono": "5555678777",
+      "correo": "eltecsevaaquemar@gmail.com"
+    }
+  ]
+}
+

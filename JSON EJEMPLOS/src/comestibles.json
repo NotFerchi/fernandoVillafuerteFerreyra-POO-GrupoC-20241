@@ -1,0 +1,10 @@
+{
+  "frutas": [
+    {"nombre": "manzana", "cantidad": 5},
+    {"nombre": "plátano", "cantidad": 3}
+  ],
+  "verduras": [
+    {"nombre": "zanahoria", "cantidad": 2},
+    {"nombre": "espinaca", "cantidad": 1}
+  ]
+}
