@@ -121,17 +121,17 @@ public class EjecutivoCuenta extends Usuario {
         int opcionModificar;
 
         do {
-            System.out.println("¿Qué desea modificar?");
-            System.out.println("1. Nombre.");
-            System.out.println("2. Apellido paterno.");
-            System.out.println("3. Apellido materno.");
-            System.out.println("4. Fecha de Nacimiento.");
-            System.out.println("5. Ciudad.");
-            System.out.println("6. Estado.");
-            System.out.println("7. Domicilio.");
-            System.out.println("8. Salario.");
-            System.out.println("9. Usuario.");
-            System.out.println("10. Contraseña.");
+            System.out.println("Campo que desea modificar: ");
+            System.out.println("1. Nombre");
+            System.out.println("2. Apellido paterno");
+            System.out.println("3. Apellido materno");
+            System.out.println("4. Fecha de nacimiento");
+            System.out.println("5. Ciudad");
+            System.out.println("6. Estado");
+            System.out.println("7. Domicilio");
+            System.out.println("8. Salario");
+            System.out.println("9. Usuario");
+            System.out.println("10. Contraseña");
             System.out.println("11. Salir.");
 
             opcionModificar = leer.nextInt();

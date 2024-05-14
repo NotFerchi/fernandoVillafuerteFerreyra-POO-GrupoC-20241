@@ -1,17 +1,16 @@
 package tarjetas;
+
 import banco.Banco;
 import tarjetas.utils.TipoTarjetaCredito;
 import usuarios.Usuario;
 
 import java.time.LocalDate;
-
 import java.util.Scanner;
 
-
-public class Credito extends Debito {
+public class Credito extends Tarjeta
+{
     private double creditoMaximo;
     private double creditoMinimo;
-
 
     public Credito(String numeroDeCuenta, int CVV, String clabeInterbancaria, Double saldo,
                    LocalDate fechaDeVencimiento, LocalDate fechaDeCreacion, TipoTarjetaCredito type) {
@@ -29,15 +28,13 @@ public class Credito extends Debito {
         LocalDate fechaVencimiento = generarFechaDeVencimiento(fechaCreacion);
         Scanner leer = new Scanner(System.in);
         System.out.println("Su número de tarjeta es: " + numeroTarjeta);
-        System.out.println("Creacion de la tarjeta: " + fechaCreacion);
-        System.out.println("CVV es: " + CVV);
+        System.out.println("Fecha de Creación: " + fechaCreacion);
+        System.out.println("CVV: " + CVV);
         System.out.println("Clave interbancaria: " + clabe);
         System.out.println("Fecha de vencimiento: " + fechaVencimiento);
         System.out.println("Tipo de tarjeta: " + tipoTarjeta);
-
         double saldo = tipoTarjeta.getSaldoMinimo();
-
-        System.out.println("El saldo es de: " + saldo);
+        System.out.println("Su saldo es de: " + saldo);
         Credito newTarjeta = new Credito(numeroTarjeta, CVV, clabe, saldo, fechaVencimiento, fechaCreacion, tipoTarjeta);
         Banco.listaTarjetas.add(newTarjeta);
         return newTarjeta;

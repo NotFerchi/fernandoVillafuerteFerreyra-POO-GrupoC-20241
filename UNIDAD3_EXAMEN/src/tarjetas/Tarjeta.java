@@ -1,10 +1,17 @@
 package tarjetas;
+
+import banco.Banco;
 import tarjetas.utils.TipoTarjetaCredito;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import banco.Banco;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public abstract class Tarjeta {
     private String numeroDeCuenta;
@@ -15,11 +22,10 @@ public abstract class Tarjeta {
     LocalDate fechaDeVencimiento;
     LocalDate fechaDeCreacion;
     TipoTarjetaCredito type;
-
     private static ArrayList<String> cuentasAsignadas = new ArrayList<>();
 
-
-    Tarjeta(String numeroDeCuenta,  int CVV, String clabeInterbancaria, Double saldo, LocalDate fechaDeVencimiento, LocalDate fechaDeCreacion) {
+    Tarjeta(String numeroDeCuenta,  int CVV,
+            String clabeInterbancaria, Double saldo, LocalDate fechaDeVencimiento, LocalDate fechaDeCreacion) {
         this.numeroDeCuenta = numeroDeCuenta;
         this.fechaYHoraUltimoMovimiento = LocalDateTime.now();
         this.CVV = CVV;
@@ -90,41 +96,38 @@ public abstract class Tarjeta {
 
     public static void abonar() {
         Scanner leer = new Scanner(System.in);
-        System.out.println("\n----- A B O N O  D E  T A R J E T A -----");
-        System.out.println("Ingresar el número de su tarjeta: ");
+        System.out.println("Realizar abono.");
+        System.out.println("Ingresar el número de tarjeta: ");
         String numeroTarjeta = leer.nextLine();
-
-        boolean tarjetaEncontrada = false;
 
         for (Tarjeta buscarTarjeta : Banco.listaTarjetas) {
             if (buscarTarjeta.getNumeroDeCuenta().equals(numeroTarjeta)) {
-                tarjetaEncontrada = true;
-
-                System.out.println("Cantidad a abonar: ");
+                System.out.println("Ingrese el monto a abonar: ");
                 double abono = leer.nextDouble();
-                leer.nextLine(); // Consumir la nueva línea después de leer el número
 
-                double saldoMinimo = buscarTarjeta.getType().getSaldoMaximo();
-                System.out.println("Saldo mínimo: " + saldoMinimo);
-                System.out.println("Cantidad abonada ingresada: " + abono);
+                TipoTarjetaCredito tipoTarjeta = buscarTarjeta.getType();
 
-                if (abono > 0 && abono + buscarTarjeta.getSaldo() > saldoMinimo) {
-                    double nuevoSaldo = buscarTarjeta.getSaldo() + abono;
-                    buscarTarjeta.setSaldo(nuevoSaldo);
-                    System.out.println("Abono realizado. Nuevo saldo: " + nuevoSaldo);
+                if (tipoTarjeta != null) {
+                    double saldoMinimo = tipoTarjeta.getSaldoMaximo();
+                    System.out.println("Saldo mínimo de la tarjeta: " + saldoMinimo);
+
+                    if (abono > 0 && abono + buscarTarjeta.getSaldo() > saldoMinimo) {
+                        double saldoAFavor = buscarTarjeta.getSaldo() + abono;
+                        buscarTarjeta.setSaldo(saldoAFavor);
+                        System.out.println("Abono realizado con éxito. Nuevo saldo: " + saldoAFavor);
+                    } else {
+                        System.out.println("El monto de abono es demasiado grande para el tipo de tarjeta o es un valor negativo. Intente de nuevo, por favor.");
+                    }
                 } else {
-                    System.out.println("La cantidad abonada es negativa o excede el límite. Intente de nuevo.");
+                    System.out.println("Tipo de tarjeta no encontrado para la tarjeta con número: " + numeroTarjeta);
                 }
-
-                break; // Salir del bucle una vez que se ha encontrado la tarjeta
+                return; // Exit the method after processing the transaction
             }
         }
 
-        if (!tarjetaEncontrada) {
-            System.out.println("No se encontró la tarjeta con el número ingresado.");
-        }
+        // If no matching tarjeta is found
+        System.out.println("No se encontró una tarjeta con el número ingresado: " + numeroTarjeta);
     }
-
 
 
     public String getNumeroDeCuenta() {

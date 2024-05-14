@@ -17,7 +17,7 @@ public class UsuarioEnSesion {
         return instancia;
     }
 
-    public Usuario getUsuarioActual(){
+    public  Usuario getUsuarioActual(){
         return usuarioActual;
     }
 
@@ -34,3 +34,4 @@ public class UsuarioEnSesion {
         usuarioActual = null;
     }
 }
+

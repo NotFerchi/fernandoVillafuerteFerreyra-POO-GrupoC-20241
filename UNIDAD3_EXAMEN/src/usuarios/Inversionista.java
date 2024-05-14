@@ -105,30 +105,31 @@ public class Inversionista extends Usuario {
 
     public static void mostrarInversionista(Usuario usuarioActual) {
         System.out.println("\n ----- L I S T A  D E  I N V E R S I O N I S T A S -----");
-
-        ArrayList<Usuario> listaInversionistas = null;
-
-        if (usuarioActual.getSucursal().equals(Sucursal.MADERO)) {
-            listaInversionistas = Banco.usuariosMadero.get(Rol.INVERSIONISTA);
-        } else if (usuarioActual.getSucursal().equals(Sucursal.ACUEDUCTO)) {
-            listaInversionistas = Banco.usuariosAcueducto.get(Rol.INVERSIONISTA);
-        }
-
-        if (listaInversionistas != null && !listaInversionistas.isEmpty()) {
-            for (Usuario usuario : listaInversionistas) {
-                if (usuario instanceof Inversionista) {
-                    Inversionista inversionista = (Inversionista) usuario;
-                    System.out.println(inversionista.toString());
+        try {
+            if (usuarioActual.getSucursal().equals(Sucursal.MADERO)) {
+                for (Usuario usuario : Banco.usuariosMadero.get(Rol.INVERSIONISTA)) {
+                    if (usuario.getRol() == Rol.INVERSIONISTA) {
+                        Inversionista newInversionista = (Inversionista) usuario;
+                        System.out.println(newInversionista.toString());
+                    }
                 }
             }
-        } else {
-            System.out.println("No hay inversionistas registrados en esta sucursal.");
+            if (usuarioActual.getSucursal().equals(Sucursal.ACUEDUCTO)) {
+                for (Usuario usuario : Banco.usuariosAcueducto.get(Rol.INVERSIONISTA)) {
+                    if (usuario.getRol() == Rol.INVERSIONISTA) {
+                        Inversionista newInversionista = (Inversionista) usuario;
+                        System.out.println(newInversionista.toString());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("\nLa lista está vacía");
         }
     }
 
     public static void modificarInversionista(Usuario usuario) {
         Scanner leer = new Scanner(System.in);
-        System.out.println("\n----- M O D I F I C A R   I N V E R S I O N I S T --A -----");
+        System.out.println("\n----- M O D I F I C A R   I N V E R S I O N I S T A -----");
         System.out.println("\nIngrese el nombre de usuario del inversionista a modificar: ");
         String modificarUserName = leer.nextLine();
 
@@ -142,12 +143,14 @@ public class Inversionista extends Usuario {
 
         if (!encontrado) {
             System.out.println("Inversionista no encontrado.");
-            if (usuario.getSucursal().equals(Sucursal.MADERO)) {
-                Menu.menuGerente(Sucursal.MADERO);
-            } else if (usuario.getSucursal().equals(Sucursal.ACUEDUCTO)) {
-                Menu.menuGerente(Sucursal.ACUEDUCTO);
-            }
+
+            // Obtener la sucursal del usuario actual
+            Sucursal sucursal = usuario.getSucursal();
+
+            // Llamar al método menuGerente() con la sucursal correspondiente
+            Menu.menuGerente(sucursal);
         }
+        leer.close();
     }
 
     private static boolean modificarInversionistaEnSucursal(ArrayList<Usuario> usuarios, String modificarUserName) {
@@ -172,18 +175,18 @@ public class Inversionista extends Usuario {
         int opcionModificar;
 
         do {
-            System.out.println("¿Qué desea modificar?");
-            System.out.println("1. Nombre.");
-            System.out.println("2. Apellido paterno.");
-            System.out.println("3. Apellido materno.");
-            System.out.println("4. Fecha de Nacimiento.");
-            System.out.println("5. Ciudad.");
-            System.out.println("6. Estado.");
-            System.out.println("7. Domicilio.");
-            System.out.println("8. Salario.");
-            System.out.println("9. Nombre de usuario.");
-            System.out.println("10. Contraseña.");
-            System.out.println("11. Fondo de inversión.");
+            System.out.println("Campo que desea modificar:");
+            System.out.println("1. Nombre");
+            System.out.println("2. Apellido paterno");
+            System.out.println("3. Apellido materno");
+            System.out.println("4. Fecha de nacimiento");
+            System.out.println("5. Ciudad");
+            System.out.println("6. Estado");
+            System.out.println("7. Domicilio");
+            System.out.println("8. Salario");
+            System.out.println("9. Nombre de usuario");
+            System.out.println("10. Contraseña");
+            System.out.println("11. Fondo de inversión");
             System.out.println("12. Salir.");
 
             opcionModificar = leer.nextInt();

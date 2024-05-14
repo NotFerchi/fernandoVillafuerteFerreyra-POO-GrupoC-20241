@@ -1,5 +1,4 @@
 package usuarios;
-
 import banco.Banco;
 import banco.Sucursal;
 import tarjetas.Credito;
@@ -55,7 +54,7 @@ public class Cliente extends Usuario {
                 System.out.println("\nCliente registrado con éxito.");
                 System.out.println("\n Su RFC es:" + RFCClient);
                 System.out.println("\n Su CURP es:" + CURPClient);
-                System.out.print("Su tarjeta es: ");
+
 
             } else {
                 if (!Banco.usuariosAcueducto.containsKey(Rol.CLIENTE)) {
@@ -171,16 +170,16 @@ public class Cliente extends Usuario {
         int opcionModificar;
 
         do {
-            System.out.println("¿Qué desea modificar?");
-            System.out.println("1. Nombre.");
-            System.out.println("2. Apellido paterno.");
-            System.out.println("3. Apellido materno.");
-            System.out.println("4. Fecha de Nacimiento.");
-            System.out.println("5. Ciudad.");
-            System.out.println("6. Estado.");
-            System.out.println("7. Domicilio.");
-            System.out.println("8. Usuario.");
-            System.out.println("9. Contraseña.");
+            System.out.println("Campo que desea modificar:");
+            System.out.println("1. Nombre");
+            System.out.println("2. Apellido paterno");
+            System.out.println("3. Apellido materno");
+            System.out.println("4. Fecha de Nacimiento");
+            System.out.println("5. Ciudad");
+            System.out.println("6. Estado");
+            System.out.println("7. Domicilio");
+            System.out.println("8. Usuario");
+            System.out.println("9. Contraseña");
             System.out.println("10. Salir.");
 
             opcionModificar = leer.nextInt();

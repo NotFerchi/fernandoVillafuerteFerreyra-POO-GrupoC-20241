@@ -6,6 +6,7 @@ import tarjetas.utils.EstadoSolicitud;
 import tarjetas.utils.TipoTarjetaCredito;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class SolicitudTarjeta {
@@ -28,11 +29,11 @@ public class SolicitudTarjeta {
     }
     public static void mostrarListaSolicitudes(){
         for (SolicitudTarjeta solicitud : Banco.listaSolicitudes) {
-            System.out.println("\nNim. de solicitud: " + solicitud.getIdSolicitud());
+            System.out.println("\nNum. de solicitud: " + solicitud.getIdSolicitud());
             System.out.println("Nombre del solicitante: " + solicitud.getClienteSolicitando().getNombre());
             System.out.println("Su tarjeta es de tipo: " + solicitud.getTipoTarjeta());
             System.out.println("Status de la tarjeta: " + solicitud.getStatus());
-            System.out.println("La tarjeta se solicito: " + solicitud.getFechaDeSolicitud());
+            System.out.println("La tarjeta se solicito: " + solicitud.getFechaHoraFormateada());
             System.out.println();
         }
     }
@@ -59,4 +60,16 @@ public class SolicitudTarjeta {
     public LocalDateTime getFechaDeSolicitud() {
         return fechaDeSolicitud;
     }
+
+    public String getFechaHoraFormateada() {
+        DateTimeFormatter formatterFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String fechaFormateada = fechaDeSolicitud.format(formatterFecha);
+        String horaFormateada = fechaDeSolicitud.format(formatterHora);
+
+        String fechaHoraBonita = String.format("%s a las %s", fechaFormateada, horaFormateada);
+
+        return fechaHoraBonita;
+    }
+
 }

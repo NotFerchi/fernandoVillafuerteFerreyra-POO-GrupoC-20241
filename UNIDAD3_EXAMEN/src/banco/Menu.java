@@ -1,13 +1,13 @@
+
 package banco;
+import tarjetas.Debito;
+import tarjetas.Tarjeta;
 import usuarios.Cliente;
 import usuarios.Usuario;
 import usuarios.empleados.GerenteSucursal;
 import usuarios.utils.UsuarioEnSesion;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
 
@@ -16,23 +16,25 @@ public class Menu {
 
     public static void iniciarSesion() {
         Scanner scanner = new Scanner(System.in);
-        boolean datosCorrectos = false;
+        boolean sesionIniciada = false;
 
-        do {
+        System.out.println("\n----- B I E N V E N I D O   A L   S I S T E M A   D E L    B A N C O   C H I L A C A S -----");
+
+        while (!sesionIniciada) {
+            System.out.println("\nSelecciona tu sucursal:");
+            System.out.println("1. A C U E D U C T O");
+            System.out.println("2. M A D E R O");
+            System.out.println("3. S A L I R   D E L  S I S T E M A");
+            System.out.print("Ingresa el número de tu opción: ");
+
             try {
-                System.out.println("\n----- B I E N V E N I D O   A L   S I S T E M A   D E L    B A N C O   C H I L A C A S -----");
-                System.out.println();
-                System.out.println("Selecciona tu sucursal:");
-                System.out.println("1. A C U E D U C T O");
-                System.out.println("2. M A D E R O");
-                System.out.println();
-                System.out.print("Ingresa el número de tu sucursal: ");
+                int opcion = scanner.nextInt();
+                scanner.nextLine(); // Limpiar el buffer de la nueva línea
 
-                int sucursalActual = scanner.nextInt();
-                scanner.nextLine();
-
-
-                Sucursal sucursalSeleccionada = (sucursalActual == 1) ? Sucursal.ACUEDUCTO : Sucursal.MADERO;
+                if (opcion == 3) {
+                    System.out.println("Saliendo del sistema. ¡Hasta luego!");
+                    break; // Salir del bucle si el usuario elige salir
+                }
 
                 System.out.print("Ingresa tu nombre de usuario: ");
                 String usuario = scanner.nextLine();
@@ -40,30 +42,42 @@ public class Menu {
                 System.out.print("Ingresa tu contraseña: ");
                 String contrasena = scanner.nextLine();
 
+                Usuario usuarioActual = null;
+                Sucursal sucursalSeleccionada = null;
 
-                Usuario usuarioActual = Banco.verificarInicioSesion(sucursalSeleccionada, usuario, contrasena);
+                switch (opcion) {
+                    case 1:
+                        sucursalSeleccionada = Sucursal.ACUEDUCTO;
+                        break;
+                    case 2:
+                        sucursalSeleccionada = Sucursal.MADERO;
+                        break;
+                    default:
+                        System.out.println("Opción inválida. Inténtalo de nuevo.");
+                        continue; // Volver al inicio del bucle si la opción es inválida
+                }
 
-                if (usuarioActual != null) {
-                    System.out.println("\nInicio de sesión exitoso.");
+                try {
+                    usuarioActual = Banco.verificarInicioSesion(sucursalSeleccionada, usuario, contrasena);
 
-                    UsuarioEnSesion.obtenerInstancia().setUsuarioActual(usuarioActual);
-
-                    seleccionarMenu();
-                    datosCorrectos = true;
-                } else {
-                    System.out.println("Datos incorrectos, inténtalo de nuevo.");
+                    if (usuarioActual != null) {
+                        sesionIniciada = true;
+                        UsuarioEnSesion.obtenerInstancia().setUsuarioActual(usuarioActual);
+                        seleccionarMenu();
+                    } else {
+                        System.out.println("Datos incorrectos, inténtalo de nuevo.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Error: Ingresa un número válido para la sucursal.");
-                scanner.nextLine();
-            } catch (Exception e) {
-                System.out.println("Error inesperado: " + e.getMessage());
+                System.out.println("Error: Ingresa un número válido para la opción de sucursal.");
+                scanner.nextLine(); // Limpiar el buffer del scanner después de la excepción
             }
-        } while (!datosCorrectos);
+        }
 
-        scanner.close();
+        scanner.close(); // Cerrar el scanner al terminar su uso
     }
-
     public static void seleccionarMenu() {
         Usuario usuario = UsuarioEnSesion.obtenerInstancia().getUsuarioActual();
         switch (usuario.getRol()) {
@@ -89,6 +103,7 @@ public class Menu {
         Usuario usuario = UsuarioEnSesion.obtenerInstancia().getUsuarioActual();
         Scanner leer = new Scanner(System.in);
         int opcion;
+
         do {
             System.out.println("\n----- M E N U   D E L   G E R E N T E   D E   S U C U R S A L -----");
             System.out.println("Acciones con:");
@@ -105,8 +120,10 @@ public class Menu {
             System.out.print("\nSeleccione una categoría para gestionar: ");
             opcion = leer.nextInt();
 
-            switch (opcion) {
+            // Consumir el salto de línea después de leer el entero
+            leer.nextLine();
 
+            switch (opcion) {
                 case 1:
                     menuClientes(usuario);
                     break;
@@ -134,8 +151,10 @@ public class Menu {
                 case 7:
                     GerenteSucursal.generarClaveSeguridad(usuario);
                     break;
+
                 case 8:
-                    Banco.mostrarInversiones(usuario,sucursal);
+                    Banco.mostrarInversiones(usuario, sucursal);
+                    break;
 
                 case 9:
                     System.out.println("\nCerrando sesión...");
@@ -145,8 +164,12 @@ public class Menu {
 
                 default:
                     System.out.println("\nOpción no válida");
+                    break;
             }
         } while (opcion != 9);
+
+        // Cerrar el scanner al finalizar
+        leer.close();
     }
 
     private static void menuClientes(Usuario usuario) {
@@ -363,20 +386,21 @@ public class Menu {
         Scanner leer = new Scanner(System.in);
         Usuario usuario = UsuarioEnSesion.obtenerInstancia().getUsuarioActual();
         Cliente cliente = (Cliente) usuario;
-        int opcion ;
+        int opcion;
+
         do {
             System.out.println("\n----- M E N U   D E L   C L I E N T E -----");
             System.out.println("1. Ver información personal.");
             System.out.println("2. Ver fondos de tarjetas");
-            System.out.println("3. Solicitar tarjeta de credito");
+            System.out.println("3. Solicitar tarjeta de crédito");
             System.out.println("4. Ver solicitudes");
             System.out.println("5. Realizar abono");
             System.out.println("6. Cerrar sesión.");
-
             System.out.println("\nAcción a realizar: ");
-            opcion = leer.nextInt();
-            switch (opcion) {
 
+            opcion = leer.nextInt();
+
+            switch (opcion) {
                 case 1:
                     Banco.mostrarInformacionClienteActual(usuario);
                     break;
@@ -392,8 +416,9 @@ public class Menu {
                 case 4:
                     cliente.mostrarSolicitudesPropias();
                     break;
+
                 case 5:
-                    Banco.realizarAbono();
+                    realizarAbono(cliente);
                     break;
 
                 case 6:
@@ -402,10 +427,43 @@ public class Menu {
                     iniciarSesion();
                     break;
 
-
-                default: System.out.println("\nOpción no válida");
+                default:
+                    System.out.println("\nOpción no válida");
+                    break;
             }
         } while (opcion != 6);
+
+        leer.close();
+    }
+
+    public static void realizarAbono(Cliente cliente) {
+        Scanner leer = new Scanner(System.in);
+        System.out.println("Seleccione el tipo de tarjeta:");
+        System.out.println("1. Tarjeta de Crédito");
+        System.out.println("2. Tarjeta de Débito");
+        int tipoTarjeta = leer.nextInt();
+
+        switch (tipoTarjeta) {
+            case 1:
+                abonarTarjetaCredito(cliente);
+                break;
+
+            case 2:
+                abonarTarjetaDebito(cliente);
+                break;
+
+            default:
+                System.out.println("Opción no válida. Intente de nuevo.");
+                break;
+        }
+    }
+
+    public static void abonarTarjetaCredito(Cliente cliente) {
+        Tarjeta.abonar();
+    }
+
+    public static void abonarTarjetaDebito(Cliente cliente) {
+        Debito.abonarDebito();
     }
 
     public static void menuInversionista(Sucursal sucursal){

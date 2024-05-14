@@ -75,16 +75,15 @@ public class Usuario {
                 nombre, apellidoPaterno, apellidoMaterno, rol, fechaDeNacimiento, estado, ciudad, direccion, curp, RFC.toUpperCase(), userName, password);
     }
 
-    public static String generateRFC(String name, String fatherLastName, String motherLastName,
-                                     String fechaDeNacimiento)
+    public static String generateRFC(String name, String fatherLastName, String motherLastName, String fechaDeNacimiento)
     {
         try {
             String nombre = name.substring(0, 2);
             String lastNameFather = fatherLastName.substring(0, 2);
             String lastNameMother = motherLastName.substring(0, 2);
-            String añoNacimiento = fechaDeNacimiento.substring(2, 4);
+            String diaNacimiento  = fechaDeNacimiento.substring(2, 4);
+            String añoNacimiento = fechaDeNacimiento.substring(8, 10);
             String mesNacimiento = fechaDeNacimiento.substring(5, 7);
-            String diaNacimiento = fechaDeNacimiento.substring(8, 10);
             String newRFC =  lastNameFather + lastNameMother + nombre + añoNacimiento + mesNacimiento +
                     diaNacimiento;
             newRFC.toUpperCase();
@@ -124,7 +123,7 @@ public class Usuario {
         System.out.print("Ingrese el apellido materno: ");
         String motherLastName = leer.nextLine();
         motherLastName.toUpperCase();
-        System.out.print("Ingrese la fecha de nacimiento formato AAAA-DD-MM: ");
+        System.out.print("Ingrese la fecha de nacimiento formato DD-MM-YYYY: ");
         String fechaNacimiento = leer.nextLine();
         System.out.print("Ciudad: ");
         String city = leer.nextLine();
@@ -139,7 +138,7 @@ public class Usuario {
         String direccion = leer.nextLine();
         System.out.print("Nombre de Usuario: ");
         String userName = leer.nextLine();
-        System.out.print("Contrasena: ");
+        System.out.print("Contraseña: ");
         String password = leer.nextLine();
         datosComun.addAll(Arrays.asList(name, fatherLastName, motherLastName, fechaNacimiento, city, estado, curp, direccion, sexo, userName, password));
         return datosComun;
@@ -151,9 +150,9 @@ public class Usuario {
             String nombre = name.substring(0, 1);
             String apellidoPaterno = fatherLastName.substring(0, 2);
             String apellidoMaterno = motherLastName.substring(0, 2);
-            String añoNacimiento = fechaDeNacimiento.substring(2, 4);
-            String mesNacimiento = fechaDeNacimiento.substring(8, 10);
-            String diaNacimiento = fechaDeNacimiento.substring(5, 7);
+            String diaNacimiento  = fechaDeNacimiento.substring(2, 4);
+            String añoNacimiento = fechaDeNacimiento.substring(8, 10);
+            String mesNacimiento = fechaDeNacimiento.substring(5, 7);
             String Sexo = sexo.substring(0, 1);
 
             String estadoAbreviatura = obtenerAbreviaturaEstado(estado);
