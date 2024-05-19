@@ -26,13 +26,13 @@ public class Libreria {
     }
 
     private void inicializarHashMaps() {
-        Gerente gerente = new Gerente("Aaron", "Telles","2005/10/01" ,"4432198178", 18500, "TEMA050110HMNLGRA",  "AaronSex", "Gearsofwar2331");
+        Gerente gerente = new Gerente("Fer", "Villa","2004/07/17" ,"443543535", 4500, "ERFBHFG273689",  "NIGGA", "117");
         usuarios.put(Rol.GERENTE, new ArrayList<Usuario>());
         usuarios.get(Rol.GERENTE).add(gerente);
-        Asistente asistente = new Asistente("Juan", "Rivera", "1998/12/05","4433210999", 1500, "RUJU1234123", "juan123", "12345");
+        Asistente asistente = new Asistente("NIG", "GG", "1998/12/05","532525255", 1500, "RHSDF5U1234123", "NIGA2", "123");
         usuarios.put(Rol.ASISTENTE, new ArrayList<Usuario>());
         usuarios.get(Rol.ASISTENTE).add(asistente);
-        Cliente cliente = new Cliente("Bri", "Ortiz", "2005/10/18","BRI12333222", "bri123", "pumasxd");
+        Cliente cliente = new Cliente("GIGANIGA", "HH", "1995/10/02", "35535353553", "NIGA", "1234");
         usuarios.put(Rol.CLIENTE, new ArrayList<Usuario>());
         usuarios.get(Rol.CLIENTE).add(cliente);
 
