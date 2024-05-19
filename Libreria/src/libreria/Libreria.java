@@ -18,13 +18,13 @@ public class Libreria {
     public static final ArrayList<Libro> libros = new ArrayList<>();
 
     public Libreria() {
-        Gerente gerente = new Gerente("Aaron", "Telles", "4432198178", 23300, "TEMA050110HMNLGRA3", "AaronSex", "Gearsofwar2331");
+        Gerente gerente = new Gerente("FER", "VILL", "443543535", 4500, "ERFBHFG273689", "NIGGA", "117");
         if (!usuarios.containsKey(Rol.GERENTE)) {
             usuarios.put(Rol.GERENTE, new ArrayList<>());
         }
         usuarios.get(Rol.GERENTE).add(gerente);
 
-        Asistente asistente = new Asistente("Juan", "Rivera", "4433210999", 1500.0, "JUANITO1234123", "juan123") {
+        Asistente asistente = new Asistente("NIG", "GG", "532525255", 1500.0, "RHSDF5U1234123", "NIGA2") {
             @Override
             public void setFechaNacimiento(String nuevaFecha) {
 
@@ -35,7 +35,7 @@ public class Libreria {
         }
         usuarios.get(Rol.ASISTENTE).add(asistente);
 
-        Cliente cliente = new Cliente("Britany", "Ortiz", "4431611799", "BRI1234", "2345678", "1990-05-01") {
+        Cliente cliente = new Cliente("GIGANIGA", "HH", "35535353553", "NIGA", "1234", "1995/10/02") {
             @Override
             public void setFechaNacimiento(String nuevaFecha) {
 
